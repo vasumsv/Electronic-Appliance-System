@@ -1,4 +1,8 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
+ 
 <html  >
 <head>
   <!-- Site made with Mobirise Website Builder v5.1.4, https://mobirise.com -->
@@ -21,9 +25,6 @@
   <link rel="stylesheet" href="assets3/theme/css/style.css">
   <link rel="preload" as="style" href="assets3/mobirise/css/mbr-additional.css"><link rel="stylesheet" href="assets3/mobirise/css/mbr-additional.css" type="text/css">
   
-  
-  
-  
 </head>
 <body>
   
@@ -36,8 +37,10 @@
                     <a href="https://mobiri.se">
                         <img src="assets3/images/1608526896930-277x168.png" alt="Mobirise" style="height: 5.9rem;">
                     </a>
+                    
                 </span>
-                
+               
+                <p>Welcome <?php echo $_SESSION['username']; ?></p>
             </div>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                 <div class="hamburger">
@@ -54,10 +57,11 @@
                             Home</a></li><li class="nav-item"><a class="nav-link link text-black display-7">
                             About us</a></li><li class="nav-item"><a class="nav-link link text-black display-7">
                             Gadget Zone</a></li>
+                           
                     
                     <li class="nav-item"><a class="nav-link link text-black display-7" href="https://mobiri.se">Contact Us</a>
                     </li></ul>
-                
+                    <a href="logout.php">Logout </a>
                 
             </div>
         </div>
@@ -304,10 +308,7 @@
 
 <section class="footer5 cid-sjI8MEBp8r" once="footers" id="footer5-5">
 
-    
-
-    
-
+ 
     <div class="container">
         <div class="media-container-row">
             <div class="col-md-2 col-6">

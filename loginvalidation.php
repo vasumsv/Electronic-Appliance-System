@@ -4,7 +4,7 @@
 
             $con = mysqli_connect('localhost','root','');
 
-            mysqli_select_db($con,'miniproject');
+            mysqli_select_db($con,'electronics');
             $name = $_POST['user'];
             $pass = $_POST['password'];
 
@@ -20,6 +20,7 @@
                header('location:home.php');
             }
             else{
+                $_SESSION['username'] = $name;
                 header('location:login.php');
                  
             }

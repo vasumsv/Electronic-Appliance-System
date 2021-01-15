@@ -102,7 +102,7 @@ img.avatar {
   </div>
   
         <div class="container">
-        <form action="registervalidation.php" method="post">
+        <form action="registervalidation.php" method="POST">
             <label  ><strong>Username </strong></label> 
                 <input type="text" placeholder="Enter Username" class="contentcenter" name="user" required=""><br>
               
