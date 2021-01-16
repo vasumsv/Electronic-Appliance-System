@@ -1,6 +1,66 @@
-<?php
-session_start();
-?>
+<?php   
+ session_start();  
+ $connect = mysqli_connect("localhost", "root", "", "electronics");  
+ if(isset($_POST["add_to_cart"]))  
+ {  
+      if(isset($_SESSION["shopping_cart"]))  
+      {  
+           $item_array_id = array_column($_SESSION["shopping_cart"], "item_id");  
+           if(!in_array($_GET["id"], $item_array_id))  
+           {  
+                $count = count($_SESSION["shopping_cart"]);  
+                $item_array = array(  
+                     'item_id'               =>     $_GET["id"],  
+                     'item_name'               =>     $_POST["hidden_name"],  
+                     'item_price'          =>     $_POST["hidden_price"],  
+                     'item_quantity'          =>     $_POST["quantity"]  
+                );  
+                $_SESSION["shopping_cart"][$count] = $item_array;  
+           }  
+           else  
+           {  
+                echo '<script>alert("Item Already Added")</script>';  
+                echo '<script>window.location="index.php"</script>';  
+           }  
+      }  
+      else  
+      {  
+           $item_array = array(  
+                'item_id'               =>     $_GET["id"],  
+                'item_name'               =>     $_POST["hidden_name"],  
+                'item_price'          =>     $_POST["hidden_price"],  
+                'item_quantity'          =>     $_POST["quantity"]  
+           );  
+           $_SESSION["shopping_cart"][0] = $item_array;  
+      }  
+ }  
+ if(isset($_GET["action"]))  
+ {  
+      if($_GET["action"] == "delete")  
+      {  
+           foreach($_SESSION["shopping_cart"] as $keys => $values)  
+           {  
+                if($values["item_id"] == $_GET["id"])  
+                {  
+                     unset($_SESSION["shopping_cart"][$keys]);  
+                     echo '<script>alert("Item Removed")</script>';  
+                     echo '<script>window.location="index.php"</script>';  
+                }  
+           }  
+      }  
+ }
+
+ if(isset($_GET['prod_id'])){
+    $prod_id = $_GET['prod_id'];
+    $username = $_SESSION['username'];
+    // $query = "SELECT FROM product WHERE id='$prod_id' ";
+    // $result = mysqli_query($connect, $query);
+    // $row = mysqli_fetch_array($result);
+
+    $query = "INSERT INTO cart(`prod_id`, `username`) VALUES('$prod_id', '$username')";
+    mysqli_query($connect, $query);
+ }
+ ?> 
 <!DOCTYPE html>
  
 <html  >
@@ -12,6 +72,11 @@ session_start();
   <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
   <link rel="shortcut icon" href="assets3/images/1608526896930-277x168.png" type="image/x-icon">
   <meta name="description" content="">
+  <!-- <title>Webslesson Tutorial | Simple PHP Mysql Shopping Cart</title>   -->
+           <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>  
+           <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />  
+           <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>  
+     
   
   
   <title>Home</title>
@@ -24,7 +89,36 @@ session_start();
   <link rel="stylesheet" href="assets3/socicon/css/styles.css">
   <link rel="stylesheet" href="assets3/theme/css/style.css">
   <link rel="preload" as="style" href="assets3/mobirise/css/mbr-additional.css"><link rel="stylesheet" href="assets3/mobirise/css/mbr-additional.css" type="text/css">
-  
+  <style>
+  .card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  max-width: 300px;
+  margin: auto;
+  text-align: center;
+  font-family: arial;
+}
+
+.price {
+  color: grey;
+  font-size: 22px;
+}
+
+.card button {
+  border: none;
+  outline: 0;
+  padding: 12px;
+  color: white;
+  background-color: #000;
+  text-align: center;
+  cursor: pointer;
+  width: 100%;
+  font-size: 18px;
+}
+
+.card button:hover {
+  opacity: 0.7;
+}
+  </style>
 </head>
 <body>
   
@@ -61,8 +155,7 @@ session_start();
                     
                     <li class="nav-item"><a class="nav-link link text-black display-7" href="https://mobiri.se">Contact Us</a>
                     </li></ul>
-                    <a href="logout.php">Logout </a>
-                
+                    <a href="logout.php">Logout</a>
             </div>
         </div>
     </nav>
@@ -172,7 +265,7 @@ session_start();
                         <span class="mobi-mbri mobi-mbri-search mbr-iconfont mbr-iconfont-btn"></span>
                     </div>
                 </div>
-                <h6 class="mbr-item-subtitle mbr-fonts-style align-center mb-2 mt-2 display-7">Mobiles</h6>
+                <a href="?cat_id=1" class="mbr-item-subtitle mbr-fonts-style align-center mb-2 mt-2 display-7" >Mobiles</a>
             </div><div class="col-12 col-md-6 col-lg-3 item gallery-image">
                 <div class="item-wrapper" data-toggle="modal" data-target="#smbcdMyku8-modal">
                     <img class="w-100" src="assets3/images/download-laptop-png-picture-506x321.png" alt="" data-slide-to="1" data-target="#lb-smbcdMyku8">
@@ -180,23 +273,16 @@ session_start();
                         <span class="mobi-mbri mobi-mbri-search mbr-iconfont mbr-iconfont-btn"></span>
                     </div>
                 </div>
-                <h6 class="mbr-item-subtitle mbr-fonts-style align-center mb-2 mt-2 display-7">Laptops</h6>
-            </div><div class="col-12 col-md-6 col-lg-3 item gallery-image">
-                <div class="item-wrapper" data-toggle="modal" data-target="#smbcdMyku8-modal">
-                    <img class="w-100" src="assets3/images/xiaomi-power-bank-16000mah-506x506.jpg" alt="" data-slide-to="2" data-target="#lb-smbcdMyku8">
-                    <div class="icon-wrapper">
-                        <span class="mobi-mbri mobi-mbri-search mbr-iconfont mbr-iconfont-btn"></span>
-                    </div>
-                </div>
-                <h6 class="mbr-item-subtitle mbr-fonts-style align-center mb-2 mt-2 display-7">Power Banks</h6>
-            </div><div class="col-12 col-md-6 col-lg-3 item gallery-image">
+                <a href="?cat_id=2" class="mbr-item-subtitle mbr-fonts-style align-center mb-2 mt-2 display-7">Laptops</a>
+            </div>
+            <div class="col-12 col-md-6 col-lg-3 item gallery-image">
                 <div class="item-wrapper" data-toggle="modal" data-target="#smbcdMyku8-modal">
                     <img class="w-100" src="assets3/images/unnamed-506x392.png" alt="" data-slide-to="3" data-target="#lb-smbcdMyku8">
                     <div class="icon-wrapper">
                         <span class="mobi-mbri mobi-mbri-search mbr-iconfont mbr-iconfont-btn"></span>
                     </div>
                 </div>
-                <h6 class="mbr-item-subtitle mbr-fonts-style align-center mb-2 mt-2 display-7">Television</h6>
+                <a href="?cat_id=3" class="mbr-item-subtitle mbr-fonts-style align-center mb-2 mt-2 display-7">Television</a>
             </div>
             
             
@@ -247,17 +333,33 @@ session_start();
 </section>
 
 <section class="content4 cid-sk0DPvQ962" id="content4-d">
-    
-    
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="title col-md-12 col-lg-10">
-                
-                <h4 class="mbr-section-subtitle align-center mbr-fonts-style mb-4 display-5">
-                    content to order</h4>
-                
-            </div>
-        </div>
+<div style="display: flex; flex-wrap: flex; justify-content: center;">
+    <?php
+
+        if(isset($_GET['cat_id'])){
+            $cat_id = $_GET['cat_id'];
+            $query = "SELECT * FROM product WHERE `cat_id`='$cat_id' ";
+            $products = mysqli_query($connect, $query);
+
+            while($row = mysqli_fetch_array($products)){
+                $name = $row['name'];
+                $price = $row['price'];
+                $image = $row['image'];
+                $id = $row['id'];
+
+                echo '
+                <div class="card">
+                    <img src="images/'. $image. '" alt="" style="width: 150px; height: 150px;">
+                    <h1>'. $name .'</h1>
+                    <p class="price">'. $price .'</p>
+                    <p><a href="?prod_id='.$id.'"><button>Add to Cart</button></a></p>
+                </div>
+                ';
+            }
+        }
+
+
+    ?>
     </div>
 </section>
 
