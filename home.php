@@ -1,6 +1,66 @@
-<?php
-session_start();
-?>
+<?php   
+ session_start();  
+ $connect = mysqli_connect("localhost", "root", "", "electronics");  
+ if(isset($_POST["add_to_cart"]))  
+ {  
+      if(isset($_SESSION["shopping_cart"]))  
+      {  
+           $item_array_id = array_column($_SESSION["shopping_cart"], "item_id");  
+           if(!in_array($_GET["id"], $item_array_id))  
+           {  
+                $count = count($_SESSION["shopping_cart"]);  
+                $item_array = array(  
+                     'item_id'               =>     $_GET["id"],  
+                     'item_name'               =>     $_POST["hidden_name"],  
+                     'item_price'          =>     $_POST["hidden_price"],  
+                     'item_quantity'          =>     $_POST["quantity"]  
+                );  
+                $_SESSION["shopping_cart"][$count] = $item_array;  
+           }  
+           else  
+           {  
+                echo '<script>alert("Item Already Added")</script>';  
+                echo '<script>window.location="index.php"</script>';  
+           }  
+      }  
+      else  
+      {  
+           $item_array = array(  
+                'item_id'               =>     $_GET["id"],  
+                'item_name'               =>     $_POST["hidden_name"],  
+                'item_price'          =>     $_POST["hidden_price"],  
+                'item_quantity'          =>     $_POST["quantity"]  
+           );  
+           $_SESSION["shopping_cart"][0] = $item_array;  
+      }  
+ }  
+ if(isset($_GET["action"]))  
+ {  
+      if($_GET["action"] == "delete")  
+      {  
+           foreach($_SESSION["shopping_cart"] as $keys => $values)  
+           {  
+                if($values["item_id"] == $_GET["id"])  
+                {  
+                     unset($_SESSION["shopping_cart"][$keys]);  
+                     echo '<script>alert("Item Removed")</script>';  
+                     echo '<script>window.location="index.php"</script>';  
+                }  
+           }  
+      }  
+ }
+
+ if(isset($_GET['prod_id'])){
+    $prod_id = $_GET['prod_id'];
+    $username = $_SESSION['username'];
+    // $query = "SELECT FROM product WHERE id='$prod_id' ";
+    // $result = mysqli_query($connect, $query);
+    // $row = mysqli_fetch_array($result);
+
+    $query = "INSERT INTO cart(`prod_id`, `username`) VALUES('$prod_id', '$username')";
+    mysqli_query($connect, $query);
+ }
+ ?> 
 <!DOCTYPE html>
  
 <html  >
@@ -12,7 +72,13 @@ session_start();
   <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
   <link rel="shortcut icon" href="assets3/images/1608526896930-277x168.png" type="image/x-icon">
   <meta name="description" content="">
-  
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- <title>Webslesson Tutorial | Simple PHP Mysql Shopping Cart</title>   -->
+           <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>  
+           <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />  
+           <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>  
+           <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+           <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   
   <title>Home</title>
   <link rel="stylesheet" href="assets3/web/assets/mobirise-icons2/mobirise2.css">
@@ -25,6 +91,37 @@ session_start();
   <link rel="stylesheet" href="assets3/theme/css/style.css">
   <link rel="preload" as="style" href="assets3/mobirise/css/mbr-additional.css"><link rel="stylesheet" href="assets3/mobirise/css/mbr-additional.css" type="text/css">
   
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <style>
+  .card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  max-width: 300px;
+  margin: auto;
+  text-align: center;
+  font-family: arial;
+}
+
+.price {
+  color: grey;
+  font-size: 22px;
+}
+
+.card button {
+  border: none;
+  outline: 0;
+  padding: 12px;
+  color: white;
+  background-color: #000;
+  text-align: center;
+  cursor: pointer;
+  width: 100%;
+  font-size: 18px;
+}
+
+.card button:hover {
+  opacity: 0.7;
+}
+  </style>
 </head>
 <body>
   
@@ -61,8 +158,7 @@ session_start();
                     
                     <li class="nav-item"><a class="nav-link link text-black display-7" href="https://mobiri.se">Contact Us</a>
                     </li></ul>
-                    <a href="logout.php">Logout </a>
-                
+                    <a href="logout.php">Logout</a>
             </div>
         </div>
     </nav>
@@ -138,7 +234,12 @@ session_start();
                           
                             
                             
-                        <p class="mbr-text mbr-fonts-style mb-4 display-4">Subbu give the content</p>
+                        <p class="mbr-text mbr-fonts-style mb-4 display-4">
+                        Electrical Appliance System is the  gadget discovery and ordering site ,
+                         focused on Mobile phones, Television and Laptops.
+                         It provides information and interactive tools to help people 
+                         decide which product to buy.
+                        </p>
                         
                     </div>
                 </div>
@@ -155,8 +256,7 @@ session_start();
 <section class="gallery5 mbr-gallery cid-sjYK1LyRk1" id="gallery5-8">
     
 
-    
-
+     
     <div class="container">
         <div class="mbr-section-head">
             <h3 class="mbr-section-title mbr-fonts-style align-center m-0 display-2"><strong>Gadget Zone</strong></h3>
@@ -165,6 +265,8 @@ session_start();
             
         </div>
         <div class="row mbr-gallery mt-4">
+        <div style="display: flex; flex-wrap: flex; justify-content: center;">
+
             <div class="col-12 col-md-6 col-lg-3 item gallery-image">
                 <div class="item-wrapper" data-toggle="modal" data-target="#smbcdMyku8-modal">
                     <img class="w-100" src="assets3/images/0038140-vivo-s1-pro-blue8gb-ram128gb-storage-251-250x250.jpeg" alt="" data-slide-to="0" data-target="#lb-smbcdMyku8">
@@ -172,7 +274,7 @@ session_start();
                         <span class="mobi-mbri mobi-mbri-search mbr-iconfont mbr-iconfont-btn"></span>
                     </div>
                 </div>
-                <h6 class="mbr-item-subtitle mbr-fonts-style align-center mb-2 mt-2 display-7">Mobiles</h6>
+                <a href="?cat_id=1" class="mbr-item-subtitle mbr-fonts-style align-center mb-2 mt-10 display-7" >Mobiles</a>
             </div><div class="col-12 col-md-6 col-lg-3 item gallery-image">
                 <div class="item-wrapper" data-toggle="modal" data-target="#smbcdMyku8-modal">
                     <img class="w-100" src="assets3/images/download-laptop-png-picture-506x321.png" alt="" data-slide-to="1" data-target="#lb-smbcdMyku8">
@@ -180,23 +282,16 @@ session_start();
                         <span class="mobi-mbri mobi-mbri-search mbr-iconfont mbr-iconfont-btn"></span>
                     </div>
                 </div>
-                <h6 class="mbr-item-subtitle mbr-fonts-style align-center mb-2 mt-2 display-7">Laptops</h6>
-            </div><div class="col-12 col-md-6 col-lg-3 item gallery-image">
-                <div class="item-wrapper" data-toggle="modal" data-target="#smbcdMyku8-modal">
-                    <img class="w-100" src="assets3/images/xiaomi-power-bank-16000mah-506x506.jpg" alt="" data-slide-to="2" data-target="#lb-smbcdMyku8">
-                    <div class="icon-wrapper">
-                        <span class="mobi-mbri mobi-mbri-search mbr-iconfont mbr-iconfont-btn"></span>
-                    </div>
-                </div>
-                <h6 class="mbr-item-subtitle mbr-fonts-style align-center mb-2 mt-2 display-7">Power Banks</h6>
-            </div><div class="col-12 col-md-6 col-lg-3 item gallery-image">
+                <a href="?cat_id=2" class="mbr-item-subtitle mbr-fonts-style align-center mb-2 mt-2 display-7">Laptops</a>
+            </div></div>
+            <div class="col-12 col-md-6 col-lg-3 item gallery-image">
                 <div class="item-wrapper" data-toggle="modal" data-target="#smbcdMyku8-modal">
                     <img class="w-100" src="assets3/images/unnamed-506x392.png" alt="" data-slide-to="3" data-target="#lb-smbcdMyku8">
                     <div class="icon-wrapper">
                         <span class="mobi-mbri mobi-mbri-search mbr-iconfont mbr-iconfont-btn"></span>
                     </div>
                 </div>
-                <h6 class="mbr-item-subtitle mbr-fonts-style align-center mb-2 mt-2 display-7">Television</h6>
+                <a href="?cat_id=3" class="mbr-item-subtitle mbr-fonts-style align-center mb-2 mt-2 display-7">Television</a>
             </div>
             
             
@@ -244,22 +339,230 @@ session_start();
             </div>
         </div>
     </div>
+     
 </section>
 
 <section class="content4 cid-sk0DPvQ962" id="content4-d">
-    
-    
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="title col-md-12 col-lg-10">
-                
-                <h4 class="mbr-section-subtitle align-center mbr-fonts-style mb-4 display-5">
-                    content to order</h4>
-                
-            </div>
-        </div>
+
+<div style="display: flex; flex-wrap: flex; justify-content: center;">
+    <?php
+
+        if(isset($_GET['cat_id'])){
+            $cat_id = $_GET['cat_id'];
+            $query = "SELECT * FROM product WHERE `cat_id`='$cat_id' ";
+            $products = mysqli_query($connect, $query);
+
+            while($row = mysqli_fetch_array($products)){
+                $name = $row['name'];
+                $price = $row['price'];
+                $image = $row['image'];
+                $description = $row['description'];
+                $id = $row['id'];
+
+                echo '
+                <div class="card">
+                    <img src="images/'. $image. '" alt="" style="width: 150px; height: 230px;">
+                    <h1>'. $name .'</h1>
+                    <p class="price">'. $price .'</p>
+                    <p >'.$description .'</p>
+                    <p><a href="?prod_id='.$id.'"><button>Add to Cart</button></a></p>
+                </div>
+                ';
+            }
+        }
+
+
+    ?>
+
     </div>
+        <!-- Display cart added items -->
+        <!-- select product.name,product.price from product INNER JOIN
+cart ON product.id = cart.prod_id WHERE cart.username = 'vasu'; -->
+
+
+<div class="w3-container">
+<p></p>
+<br>
+<p></p>
+<h4 class="mbr-section-title mbr-fonts-style align-center m-0 display-2"> My Cart  <i class='fas fa-shopping-cart' style='font-size:32px'></i></h4><br/>
+<?php
+        $username = $_SESSION['username']; 
+        $query = "SELECT * from product INNER JOIN cart on product.id = cart.prod_id WHERE cart.username = '$username'";
+        $products = mysqli_query($connect, $query);
+        echo '<table class="w3-table-all"> <thead> <tr class="w3-red"><th>Product Name</th> <th>Price</th> <th>Select Options</th></tr></thead>';
+        if ($products->num_rows > 0) {
+            // output data of each row
+            while($row = $products->fetch_assoc()) {
+                echo '<tr> <td>'. $row["name"]. '</td> <td>'. $row["price"]. '</td><td><button class="btn" ><i style="font-size:18px" class="fa fa-trash"></i>&nbsp;Delete</button><button class="btn1"><i style="font-size:18px" class="fa">&#xf0d1;</i> Buy</button></td>  </tr>';
+            }
+        } else {
+            echo "<center><h4>Your Cart is empty</h4>";
+        }
+        echo'</table>';
+
+
+        
+
+?>
+
+</div>
+
+<!-- Button styles -->
+<style>
+.btn {
+  background-color: red;
+  border: none;
+  color: white;
+  padding: 6px 8px;
+  font-size: 14px;
+  cursor: pointer;
+}
+.btn1 {
+  background-color: green;
+  border: none;
+  color: white;
+  padding: 6px 8px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+/* Darker background on mouse-over */
+.btn:hover {
+  background-color: gray;
+}
+.btn1:hover {
+  background-color: gray;
+}
+</style>
 </section>
+
+<section class="content4 cid-sk0DPvQ962" id="content4-d">
+<style>
+* {
+  box-sizing: border-box;
+}
+
+input[type=text], select, textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  resize: vertical;
+}
+
+label {
+  padding: 12px 12px 12px 0;
+  display: inline-block;
+}
+
+.col-25 {
+  float: left;
+  width: 25%;
+  margin-top: 6px;
+}
+
+.col-75 {
+  float: left;
+  width: 75%;
+  margin-top: 6px;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 600px) {
+  .col-25, .col-75, input[type=submit] {
+    width: 100%;
+    margin-top: 0;
+  }
+}
+</style>
+
+<div class="container">
+<h4 class="mbr-section-title mbr-fonts-style align-center m-0 display-2"> My Orders Details&nbsp;<i class="fa fa-home" style='font-size:46px'></i></h4><br/>
+  <form action="">
+  <div class="row">
+    <div class="col-25">
+      <label for="fname">Product Name</label>
+    </div>
+    <div class="col-75">
+      <input type="text" id="proname" name="proname" placeholder="product name">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-25">
+      <label for="fname">Total Price</label>
+    </div>
+    <div class="col-75">
+      <input type="text" id="price" name="price" placeholder="price">
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-25">
+      <label for="fname">Name</label>
+    </div>
+    <div class="col-75">
+      <input type="text" id="fname" name="name" placeholder="Your name..">
+    </div>
+  </div>
+  
+  <div class="row">
+    <div class="col-25">
+      <label for="subject">Address</label>
+    </div>
+    <div class="col-75">
+      <textarea id="address" name="address" placeholder="Your Address" style="height:200px"></textarea>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-25">
+      <label for="fname">pincode</label>
+    </div>
+    <div class="col-75">
+      <input type="text" id="pincode" name="pincode" placeholder="eg:548741">
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-25">
+      <label for="fname">Contact Number</label>
+    </div>
+    <div class="col-75">
+      <input type="text" id="number" name="number" placeholder="eg:8540000054 ">
+    </div>
+    <br>
+  </div>
+
+  <div class="row">
+   <button id="button" type="submit" value="Submit">Update Address</button> 
+  </div>
+  </form>
+  <style>
+#button {
+  background-color: green;
+  border: none;
+  color: white;
+  padding: 6px 8px;
+  font-size: 14px;
+  cursor: pointer;
+  position: absolute;
+  -ms-transform: translateY(50%);
+  transform: translateY(90%);
+  transform: translateX(750%);
+  -ms-transform: translateY(-50%);
+}
+  </style>
+</div>
+
+</section>
+
 
 <section class="contacts1 cid-sjZ1OQaHS5" id="contacts1-c">
 
