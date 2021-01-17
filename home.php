@@ -72,13 +72,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
   <link rel="shortcut icon" href="assets3/images/1608526896930-277x168.png" type="image/x-icon">
   <meta name="description" content="">
+<<<<<<< HEAD
   <meta name="viewport" content="width=device-width, initial-scale=1">
+=======
+>>>>>>> c7d4c2e92ff6fe7d6c7b0ac9ee8b2c3b4d3fca02
   <!-- <title>Webslesson Tutorial | Simple PHP Mysql Shopping Cart</title>   -->
            <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>  
            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />  
            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>  
+<<<<<<< HEAD
            <script src='https://kit.fontawesome.com/a076d05399.js'></script>
            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+=======
+     
+  
+>>>>>>> c7d4c2e92ff6fe7d6c7b0ac9ee8b2c3b4d3fca02
   
   <title>Home</title>
   <link rel="stylesheet" href="assets3/web/assets/mobirise-icons2/mobirise2.css">
@@ -90,8 +98,11 @@
   <link rel="stylesheet" href="assets3/socicon/css/styles.css">
   <link rel="stylesheet" href="assets3/theme/css/style.css">
   <link rel="preload" as="style" href="assets3/mobirise/css/mbr-additional.css"><link rel="stylesheet" href="assets3/mobirise/css/mbr-additional.css" type="text/css">
+<<<<<<< HEAD
   
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+=======
+>>>>>>> c7d4c2e92ff6fe7d6c7b0ac9ee8b2c3b4d3fca02
   <style>
   .card {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
@@ -274,7 +285,11 @@
                         <span class="mobi-mbri mobi-mbri-search mbr-iconfont mbr-iconfont-btn"></span>
                     </div>
                 </div>
+<<<<<<< HEAD
                 <a href="?cat_id=1" class="mbr-item-subtitle mbr-fonts-style align-center mb-2 mt-10 display-7" >Mobiles</a>
+=======
+                <a href="?cat_id=1" class="mbr-item-subtitle mbr-fonts-style align-center mb-2 mt-2 display-7" >Mobiles</a>
+>>>>>>> c7d4c2e92ff6fe7d6c7b0ac9ee8b2c3b4d3fca02
             </div><div class="col-12 col-md-6 col-lg-3 item gallery-image">
                 <div class="item-wrapper" data-toggle="modal" data-target="#smbcdMyku8-modal">
                     <img class="w-100" src="assets3/images/download-laptop-png-picture-506x321.png" alt="" data-slide-to="1" data-target="#lb-smbcdMyku8">
@@ -283,7 +298,11 @@
                     </div>
                 </div>
                 <a href="?cat_id=2" class="mbr-item-subtitle mbr-fonts-style align-center mb-2 mt-2 display-7">Laptops</a>
+<<<<<<< HEAD
             </div></div>
+=======
+            </div>
+>>>>>>> c7d4c2e92ff6fe7d6c7b0ac9ee8b2c3b4d3fca02
             <div class="col-12 col-md-6 col-lg-3 item gallery-image">
                 <div class="item-wrapper" data-toggle="modal" data-target="#smbcdMyku8-modal">
                     <img class="w-100" src="assets3/images/unnamed-506x392.png" alt="" data-slide-to="3" data-target="#lb-smbcdMyku8">
@@ -343,7 +362,10 @@
 </section>
 
 <section class="content4 cid-sk0DPvQ962" id="content4-d">
+<<<<<<< HEAD
 
+=======
+>>>>>>> c7d4c2e92ff6fe7d6c7b0ac9ee8b2c3b4d3fca02
 <div style="display: flex; flex-wrap: flex; justify-content: center;">
     <?php
 
@@ -356,15 +378,24 @@
                 $name = $row['name'];
                 $price = $row['price'];
                 $image = $row['image'];
+<<<<<<< HEAD
                 $description = $row['description'];
+=======
+>>>>>>> c7d4c2e92ff6fe7d6c7b0ac9ee8b2c3b4d3fca02
                 $id = $row['id'];
 
                 echo '
                 <div class="card">
+<<<<<<< HEAD
                     <img src="images/'. $image. '" alt="" style="width: 150px; height: 230px;">
                     <h1>'. $name .'</h1>
                     <p class="price">'. $price .'</p>
                     <p >'.$description .'</p>
+=======
+                    <img src="images/'. $image. '" alt="" style="width: 150px; height: 150px;">
+                    <h1>'. $name .'</h1>
+                    <p class="price">'. $price .'</p>
+>>>>>>> c7d4c2e92ff6fe7d6c7b0ac9ee8b2c3b4d3fca02
                     <p><a href="?prod_id='.$id.'"><button>Add to Cart</button></a></p>
                 </div>
                 ';
@@ -373,7 +404,10 @@
 
 
     ?>
+<<<<<<< HEAD
 
+=======
+>>>>>>> c7d4c2e92ff6fe7d6c7b0ac9ee8b2c3b4d3fca02
     </div>
         <!-- Display cart added items -->
         <!-- select product.name,product.price from product INNER JOIN
