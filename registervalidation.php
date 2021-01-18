@@ -24,4 +24,4 @@
                 mysqli_query($con,$reg);
                 echo "$name your registeration is sucessful";
             }
-        ?>
+?>

@@ -34,21 +34,7 @@
            $_SESSION["shopping_cart"][0] = $item_array;  
       }  
  }  
- if(isset($_GET["action"]))  
- {  
-      if($_GET["action"] == "delete")  
-      {  
-           foreach($_SESSION["shopping_cart"] as $keys => $values)  
-           {  
-                if($values["item_id"] == $_GET["id"])  
-                {  
-                     unset($_SESSION["shopping_cart"][$keys]);  
-                     echo '<script>alert("Item Removed")</script>';  
-                     echo '<script>window.location="index.php"</script>';  
-                }  
-           }  
-      }  
- }
+ 
 
  if(isset($_GET['prod_id'])){
     $prod_id = $_GET['prod_id'];
@@ -59,6 +45,22 @@
 
     $query = "INSERT INTO cart(`prod_id`, `username`) VALUES('$prod_id', '$username')";
     mysqli_query($connect, $query);
+ }
+
+ if(isset($_GET['delete_id']))
+ {
+     $delete_id = $_GET['delete_id'];
+
+     $query = "DELETE FROM cart WHERE id = $delete_id";
+     mysqli_query($connect, $query);
+ }
+
+ $pname = "";
+ $pprice = "";
+
+ if(isset($_GET['name']) && isset($_GET['price'])){
+    $pname = $_GET['name'];
+    $pprice = $_GET['price'];
  }
  ?> 
 <!DOCTYPE html>
@@ -72,21 +74,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
   <link rel="shortcut icon" href="assets3/images/1608526896930-277x168.png" type="image/x-icon">
   <meta name="description" content="">
-<<<<<<< HEAD
   <meta name="viewport" content="width=device-width, initial-scale=1">
-=======
->>>>>>> c7d4c2e92ff6fe7d6c7b0ac9ee8b2c3b4d3fca02
   <!-- <title>Webslesson Tutorial | Simple PHP Mysql Shopping Cart</title>   -->
            <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>  
            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />  
            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>  
-<<<<<<< HEAD
            <script src='https://kit.fontawesome.com/a076d05399.js'></script>
            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-=======
-     
-  
->>>>>>> c7d4c2e92ff6fe7d6c7b0ac9ee8b2c3b4d3fca02
   
   <title>Home</title>
   <link rel="stylesheet" href="assets3/web/assets/mobirise-icons2/mobirise2.css">
@@ -98,11 +92,8 @@
   <link rel="stylesheet" href="assets3/socicon/css/styles.css">
   <link rel="stylesheet" href="assets3/theme/css/style.css">
   <link rel="preload" as="style" href="assets3/mobirise/css/mbr-additional.css"><link rel="stylesheet" href="assets3/mobirise/css/mbr-additional.css" type="text/css">
-<<<<<<< HEAD
   
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-=======
->>>>>>> c7d4c2e92ff6fe7d6c7b0ac9ee8b2c3b4d3fca02
   <style>
   .card {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
@@ -114,7 +105,7 @@
 
 .price {
   color: grey;
-  font-size: 22px;
+  font-size: 18px;
 }
 
 .card button {
@@ -122,11 +113,11 @@
   outline: 0;
   padding: 12px;
   color: white;
-  background-color: #000;
+  background-color: #4feb47;
   text-align: center;
   cursor: pointer;
   width: 100%;
-  font-size: 18px;
+  font-size: 16px;
 }
 
 .card button:hover {
@@ -136,7 +127,7 @@
 </head>
 <body>
   
-  <section class="menu menu2 cid-sjGRJdS1gL" once="menu" id="menu2-0">
+  <section class="menu menu2 cid-sjGRJdS1gL" once="menu" id="menu2-0" >
     
     <nav class="navbar navbar-dropdown navbar-fixed-top navbar-expand-lg">
         <div class="container-fluid">
@@ -161,14 +152,17 @@
             
          
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav nav-dropdown nav-right" data-app-modern-menu="true"><li class="nav-item"><a class="nav-link link text-black display-7" href="http://index.html">
-                            Home</a></li><li class="nav-item"><a class="nav-link link text-black display-7">
-                            About us</a></li><li class="nav-item"><a class="nav-link link text-black display-7">
+                <ul class="navbar-nav nav-dropdown nav-right" data-app-modern-menu="true"><li class="nav-item"><a class="nav-link link text-black display-7"   href="#menu2-0">
+                            Home</a></li><li class="nav-item"><a class="nav-link link text-black display-7" href="#features16-a">
+                            About us</a></li><li class="nav-item"><a class="nav-link link text-black display-7" href="#gallery5-8">
                             Gadget Zone</a></li>
+
+                            <li class="nav-item"><a class="nav-link link text-black display-7"   href="#my_cart">My Cart <i class="fa fa-shopping-cart" style="font-size:24px"></i></a>
+                    </li>
                            
                     
-                    <li class="nav-item"><a class="nav-link link text-black display-7" href="https://mobiri.se">Contact Us</a>
-                    </li></ul>
+                    <li class="nav-item"><a class="nav-link link text-black display-7"   href="#contacts1-c">Contact Us</a>
+                    </ul>
                     <a href="logout.php">Logout</a>
             </div>
         </div>
@@ -285,11 +279,7 @@
                         <span class="mobi-mbri mobi-mbri-search mbr-iconfont mbr-iconfont-btn"></span>
                     </div>
                 </div>
-<<<<<<< HEAD
                 <a href="?cat_id=1" class="mbr-item-subtitle mbr-fonts-style align-center mb-2 mt-10 display-7" >Mobiles</a>
-=======
-                <a href="?cat_id=1" class="mbr-item-subtitle mbr-fonts-style align-center mb-2 mt-2 display-7" >Mobiles</a>
->>>>>>> c7d4c2e92ff6fe7d6c7b0ac9ee8b2c3b4d3fca02
             </div><div class="col-12 col-md-6 col-lg-3 item gallery-image">
                 <div class="item-wrapper" data-toggle="modal" data-target="#smbcdMyku8-modal">
                     <img class="w-100" src="assets3/images/download-laptop-png-picture-506x321.png" alt="" data-slide-to="1" data-target="#lb-smbcdMyku8">
@@ -298,11 +288,7 @@
                     </div>
                 </div>
                 <a href="?cat_id=2" class="mbr-item-subtitle mbr-fonts-style align-center mb-2 mt-2 display-7">Laptops</a>
-<<<<<<< HEAD
             </div></div>
-=======
-            </div>
->>>>>>> c7d4c2e92ff6fe7d6c7b0ac9ee8b2c3b4d3fca02
             <div class="col-12 col-md-6 col-lg-3 item gallery-image">
                 <div class="item-wrapper" data-toggle="modal" data-target="#smbcdMyku8-modal">
                     <img class="w-100" src="assets3/images/unnamed-506x392.png" alt="" data-slide-to="3" data-target="#lb-smbcdMyku8">
@@ -362,10 +348,7 @@
 </section>
 
 <section class="content4 cid-sk0DPvQ962" id="content4-d">
-<<<<<<< HEAD
 
-=======
->>>>>>> c7d4c2e92ff6fe7d6c7b0ac9ee8b2c3b4d3fca02
 <div style="display: flex; flex-wrap: flex; justify-content: center;">
     <?php
 
@@ -378,24 +361,15 @@
                 $name = $row['name'];
                 $price = $row['price'];
                 $image = $row['image'];
-<<<<<<< HEAD
                 $description = $row['description'];
-=======
->>>>>>> c7d4c2e92ff6fe7d6c7b0ac9ee8b2c3b4d3fca02
                 $id = $row['id'];
 
                 echo '
                 <div class="card">
-<<<<<<< HEAD
                     <img src="images/'. $image. '" alt="" style="width: 150px; height: 230px;">
                     <h1>'. $name .'</h1>
-                    <p class="price">'. $price .'</p>
+                    <p class="price">&#x20B9; '. $price .'</p>
                     <p >'.$description .'</p>
-=======
-                    <img src="images/'. $image. '" alt="" style="width: 150px; height: 150px;">
-                    <h1>'. $name .'</h1>
-                    <p class="price">'. $price .'</p>
->>>>>>> c7d4c2e92ff6fe7d6c7b0ac9ee8b2c3b4d3fca02
                     <p><a href="?prod_id='.$id.'"><button>Add to Cart</button></a></p>
                 </div>
                 ';
@@ -404,16 +378,13 @@
 
 
     ?>
-<<<<<<< HEAD
 
-=======
->>>>>>> c7d4c2e92ff6fe7d6c7b0ac9ee8b2c3b4d3fca02
     </div>
         <!-- Display cart added items -->
         <!-- select product.name,product.price from product INNER JOIN
 cart ON product.id = cart.prod_id WHERE cart.username = 'vasu'; -->
 
-
+<section id="my_cart">
 <div class="w3-container">
 <p></p>
 <br>
@@ -421,25 +392,30 @@ cart ON product.id = cart.prod_id WHERE cart.username = 'vasu'; -->
 <h4 class="mbr-section-title mbr-fonts-style align-center m-0 display-2"> My Cart  <i class='fas fa-shopping-cart' style='font-size:32px'></i></h4><br/>
 <?php
         $username = $_SESSION['username']; 
-        $query = "SELECT * from product INNER JOIN cart on product.id = cart.prod_id WHERE cart.username = '$username'";
+        $query = "SELECT cart.id as cid, product.name, product.price from product INNER JOIN cart on product.id = cart.prod_id WHERE cart.username = '$username'";
         $products = mysqli_query($connect, $query);
-        echo '<table class="w3-table-all"> <thead> <tr class="w3-red"><th>Product Name</th> <th>Price</th> <th>Select Options</th></tr></thead>';
+        echo '<table class="w3-table-all"> <thead> <tr class="w3-green"><th>Product Name</th> <th>Price</th> <th>Select Options</th></tr></thead>';
         if ($products->num_rows > 0) {
             // output data of each row
             while($row = $products->fetch_assoc()) {
-                echo '<tr> <td>'. $row["name"]. '</td> <td>'. $row["price"]. '</td><td><button class="btn" ><i style="font-size:18px" class="fa fa-trash"></i>&nbsp;Delete</button><button class="btn1"><i style="font-size:18px" class="fa">&#xf0d1;</i> Buy</button></td>  </tr>';
+                $cid = $row['cid'];
+                $name = $row["name"];
+                $price = $row['price'];
+
+                echo '<tr> <td>'. $row["name"]. '</td> <td>&#x20B9;'. $row["price"]. '</td><td><a href="?delete_id='.$cid.'" class="btn" ><i style="font-size:18px" class="fa fa-trash"></i>&nbsp;Delete</a><a href="?name='.$name.'&&price='.$price.'" class="btn1"><i style="font-size:18px" class="fa">&#xf0d1;</i> Buy</a></td>  </tr>';
             }
         } else {
             echo "<center><h4>Your Cart is empty</h4>";
         }
         echo'</table>';
 
-
-        
-
+        // $query_exe = "DELETE FROM cart WHERE prod_id = '$row['id']' and username = '$username'";
+        // $result = mysqli_query($connect, $query);
+        // delete from cart where id = $prod_id
+   
 ?>
-
 </div>
+</section>
 
 <!-- Button styles -->
 <style>
@@ -519,13 +495,13 @@ label {
 
 <div class="container">
 <h4 class="mbr-section-title mbr-fonts-style align-center m-0 display-2"> My Orders Details&nbsp;<i class="fa fa-home" style='font-size:46px'></i></h4><br/>
-  <form action="">
+  <form action="ordervalidation.php" method="post">
   <div class="row">
     <div class="col-25">
       <label for="fname">Product Name</label>
     </div>
     <div class="col-75">
-      <input type="text" id="proname" name="proname" placeholder="product name">
+      <input type="text" id="proname" name="proname" placeholder="product name" value="<?php echo $pname; ?>">
     </div>
   </div>
   <div class="row">
@@ -533,7 +509,7 @@ label {
       <label for="fname">Total Price</label>
     </div>
     <div class="col-75">
-      <input type="text" id="price" name="price" placeholder="price">
+      <input type="text" id="price" name="price" placeholder="price"  value="<?php echo $pprice; ?>">
     </div>
   </div>
 
