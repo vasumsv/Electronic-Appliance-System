@@ -31,33 +31,34 @@ This project mainly aims at developing a website to sell these electrical applia
  
  
  ### Login Page
- 
+ ![1](https://github.com/vasumsv/Electronic-Appliance-System/blob/main/screenshots/Screenshot%20(118).png)
  
  ### Register Page
- 
+  ![2](https://github.com/vasumsv/Electronic-Appliance-System/blob/main/screenshots/Screenshot%20(110).png)
  
  ### Home Page
- 
+  ![3](https://github.com/vasumsv/Electronic-Appliance-System/blob/main/screenshots/Screenshot%20(110).png)
  
  ### About us and Gadget Zone page
- 
+  ![4](https://github.com/vasumsv/Electronic-Appliance-System/blob/main/screenshots/Screenshot%20(111).png)
  
  ### Product Details Page
- 
+  ![5](https://github.com/vasumsv/Electronic-Appliance-System/blob/main/screenshots/Screenshot%20(115).png)
  
  ### My Cart Page
- 
+  ![6](https://github.com/vasumsv/Electronic-Appliance-System/blob/main/screenshots/Screenshot%20(112).png)
  
  ### My Order Details
- 
+  ![7](https://github.com/vasumsv/Electronic-Appliance-System/blob/main/screenshots/Screenshot%20(113).png)
  
  ### Order Conformation Page
- 
+  ![8](https://github.com/vasumsv/Electronic-Appliance-System/blob/main/screenshots/Screenshot%20(116).png)
  
  ### Contact Details Page
- 
+  ![9](https://github.com/vasumsv/Electronic-Appliance-System/blob/main/screenshots/Screenshot%20(114).png)
  
  ### Admin Login Page
- 
+  ![10](https://github.com/vasumsv/Electronic-Appliance-System/blob/main/screenshots/Screenshot%20(119).png)
  
  ### Admin View Orders Page
+  ![11](https://github.com/vasumsv/Electronic-Appliance-System/blob/main/screenshots/Screenshot%20(117).png)
