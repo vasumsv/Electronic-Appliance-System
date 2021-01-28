@@ -10,7 +10,7 @@
   <meta name="description" content="">
   
   
-  <title>Login</title>
+  <title>Admin Login</title>
   <link rel="stylesheet" href="assets/tether/tether.min.css">
   <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
   <link rel="stylesheet" href="assets/bootstrap/css/bootstrap-grid.min.css">
@@ -97,12 +97,12 @@ img.avatar {
                  <div id="box"> 
                  <div class="imgcontainer">
     <img src="assets/images/1608526896930.png" alt="Avatar" class="imgcenter">
-     <label class="contentcenter" id="logtext"><strong>Log into your Account  </strong></label>
+     <label class="contentcenter" id="logtext"><strong>Log into Admin Account </strong></label>
   </div>
   
         <div class="container">
             <div class="login-box">
-        <form action="loginvalidation.php" method="post">
+        <form action="adminvalidation.php" method="post">
             <label  ><strong>Username </strong></label> 
                 <input type="text" placeholder="Enter Username" class="contentcenter" name="user" required="">
                  <br>
@@ -116,13 +116,8 @@ img.avatar {
             <label>
                  <input type="checkbox" checked="" name="remember"> Remember me
             </label><br>
-            <label ><u>forgot password?</u></label>
-            <br>
-            <strong>New User?&nbsp;</strong><a href="register.php"><label >Sign Up</p></label>   </a>
-          </form>
-          
+             
           </div>
-          <a href="adminlogin.php"><strong>ADMIN</strong></a>
 </div>
                  
                  
