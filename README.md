@@ -19,13 +19,13 @@ This project mainly aims at developing a website to sell these electrical applia
 :radio_button: Language used: HTML5, PHP, SQL, CSS, JAVASCRIPT  
 :radio_button: Compiler: Web Browser  
  
-  ### To Download
-  
+  ### Flow Chart
+   ![12](https://github.com/vasumsv/Electronic-Appliance-System/blob/main/screenshots/Screenshot%20(132).png)
  
  ### To Download
  ##### Run this command in your terminal
  ```Python3
- git clone https://github.com/vasumsv/Inventory-management-System.git
+ https://github.com/vasumsv/Electronic-Appliance-System.git
  ```
   After running this command the Electric Appliance System project zip file will be downloaded in your system.
   
